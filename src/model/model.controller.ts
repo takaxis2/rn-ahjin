@@ -22,8 +22,9 @@ export class ModelController {
 
   @Get()
   async findAll() {
-    console.log('model find all');
-    return await this.modelService.findAll();
+    const result =await this.modelService.findAll();
+    console.log(result);
+    return result;
   }
 
   // @Get(':id')
