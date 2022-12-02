@@ -26,7 +26,7 @@ export class ModelDetailController {
     return await this.modelDetailService.findAll(+id);
   }
 
-  @Get(':id/one')
+  @Get(':id/one') //얘는 필요가 없어
   async findOne(@Param('id') id: string) {
     return await this.modelDetailService.findOne(+id);
   }
@@ -39,7 +39,7 @@ export class ModelDetailController {
     return await this.modelDetailService.update(+id, updateModelDetailDto);
   }
 
-  @Delete(':id')
+  @Delete(':id') //애도 안쓸거야
   async remove(@Param('id') id: string) {
     return await this.modelDetailService.remove(+id);
   }

@@ -2,12 +2,10 @@ import { Column, Entity } from "typeorm";
 import { BaseEntity } from "./BaseEntity.entity";
 
 @Entity()
-export class Drawing extends BaseEntity{
+export class BomDrawing extends BaseEntity {
     @Column()
-    fileName : string;
+    fileName: string;
 
     @Column()
-    modelDetailId: number;
-
-    
+    bomId:number;
 }

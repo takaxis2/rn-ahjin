@@ -1,35 +1,47 @@
 import { BaseEntity } from './BaseEntity.entity';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToOne, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { BomDrawing } from './bom-drawing.entity';
+import { ModelDetail } from './modelDetail.entity';
+import { WorkPlan } from './work-plan.entity';
 
 @Entity()
 export class Bom extends BaseEntity {
-  @Column()
-  modelId: number;
   // @Column()
-  // name: string;
+  // modelDetailId: number;
   @Column()
   pi: number;
   @Column()
-  size: number;
+  CNC: boolean;
   @Column()
-  weight: number;
+  size: number;
   @Column()
   T: boolean;
   @Column()
-  CNC: boolean;
+  type: string;
   @Column()
-  note: string;
+  name: string;
   @Column()
-  EA: number;
+  reduction: boolean;
+  @Column()
+  enrlgmnt: boolean;
+  @Column()
+  shorten: boolean;
+  @Column()
+  requirement: number;
 
-  @Column()
-  active: boolean;
-  // @Column()
-  // dueDate: Date;
+  @OneToOne(()=>BomDrawing)
+  @JoinColumn()
+  bomDrawing: BomDrawing;
+
+  @ManyToOne(()=>ModelDetail, (modelDetail)=>modelDetail.boms)
+  modelDetail: ModelDetail;
+
+  @OneToMany(()=>WorkPlan, (workPlan)=>workPlan.bom)
+  workPlans: WorkPlan[];
 }
 
 /**
- * 축 : boolean, 축소
- * 확 : boolean, 확대
- * 단 : boolean, 짧을단
+ * 여기에 note가 있었음
  */
+
+  

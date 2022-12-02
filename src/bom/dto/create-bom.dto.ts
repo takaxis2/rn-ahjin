@@ -1,10 +1,11 @@
 export class CreateBomDto {
-  modelId: number;
+  modelDetailId: number;
   pi: number;
-  size: number;
-  weight: number;
-  T: boolean;
   CNC: boolean;
-  note: string;
-  EA: number;
+  size: number;
+  T: boolean;
+  type:string;
+  requirement:number;
+  reduction:boolean;
+  
 }

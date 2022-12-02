@@ -16,13 +16,10 @@ export class ModelDetailService {
   async create(createModelDetailDto: CreateModelDetailDto) {
     const modelDetail: ModelDetail = new ModelDetail();
 
-    modelDetail.EA = createModelDetailDto.EA;
-    modelDetail.bomId = createModelDetailDto.bomId;
-    modelDetail.dueDate = createModelDetailDto.dueDate;
+    // modelDetail.bomId = createModelDetailDto.bomId;
     modelDetail.name = createModelDetailDto.name;
-    modelDetail.modelId = createModelDetailDto.modelId;
 
-    console.log('ok');
+    //modelDetail과 model 연결 시켜야함, 수정에서 
 
     const result = await this.modelDetailRepository.save(modelDetail);
 
@@ -30,9 +27,10 @@ export class ModelDetailService {
   }
 
   async findAll(modelId: number) {
-    const modelDetails = await this.modelDetailRepository.find({
-      where: { modelId: modelId },
-    });
+    // const modelDetails = await this.modelDetailRepository.find({
+    //   where: { modelId: modelId },
+    // });
+    const modelDetails = await this.modelDetailRepository.find();
 
     return modelDetails;
   }
@@ -47,9 +45,12 @@ export class ModelDetailService {
     const modelDetail = await this.modelDetailRepository.findOne({
       where: { id: id },
     });
-
-    modelDetail.dueDate = updateModelDetailDto.dueDate;
-    modelDetail.EA = updateModelDetailDto.EA;
+    
+    modelDetail.name = updateModelDetailDto.name;
+    
+    //이거 두개는 전달받은 아이디값으로 여기서 다시 찾아서 연결시킨다
+    modelDetail.drawing
+    modelDetail.boms
 
     return await this.modelDetailRepository.save(modelDetail);
   }

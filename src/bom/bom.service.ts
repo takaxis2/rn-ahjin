@@ -14,21 +14,18 @@ export class BomService {
 
   async create(createBomDto: CreateBomDto) {
     const bom: Bom = new Bom();
-
+    //bom과 modelDetail을 연결 시켜야함
     bom.CNC = createBomDto.CNC;
-    bom.EA = createBomDto.EA;
     bom.T = createBomDto.T;
-    bom.modelId = createBomDto.modelId;
-    bom.note = createBomDto.note;
     bom.pi = createBomDto.pi;
     bom.size = createBomDto.size;
-    bom.weight = createBomDto.weight;
 
     return await this.bomRepository.save(bom);
   }
 
   async findAll(modelId: number) {
-    const boms = await this.bomRepository.find({ where: { modelId: modelId } });
+    // const boms = await this.bomRepository.find({ where: { modelDetailId: modelId } });
+    const boms = await this.bomRepository.find();
 
     return boms;
   }
@@ -41,7 +38,6 @@ export class BomService {
   async update(id: number, updateBomDto: UpdateBomDto) {
     const bom = await this.bomRepository.findOne({ where: { id: id } });
 
-    bom.EA = updateBomDto.EA;
 
     return await this.bomRepository.save(bom);
   }

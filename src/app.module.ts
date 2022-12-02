@@ -10,6 +10,14 @@ import { Stock } from './entity/stock.entity';
 import { DeliveredAtAndEA } from './entity/deliveredAtAndEA.entity';
 import { ModelDetailModule } from './model-detail/model-detail.module';
 import { ModelDetail } from './entity/modelDetail.entity';
+import { ProdPlanModule } from './prod-plan/prod-plan.module';
+import { WorkPlanModule } from './work-plan/work-plan.module';
+import { DrawingModule } from './drawing/drawing.module';
+import { BomDrawingModule } from './bom-drawing/bom-drawing.module';
+import { Drawing } from './entity/Drawing.entity';
+import { BomDrawing } from './entity/bom-drawing.entity';
+import { WorkPlan } from './entity/work-plan.entity';
+import { ProdPlan } from './entity/prod-plan.entity';
 
 @Module({
   imports: [
@@ -21,7 +29,7 @@ import { ModelDetail } from './entity/modelDetail.entity';
       username: `${process.env.DB_USERNAME}`,
       password: `${process.env.DB_PASSWORD}`,
       database: `${process.env.DB_DATABASE}`,
-      entities: [Bom, Model, Stock, DeliveredAtAndEA, ModelDetail], 
+      entities: [Bom, Model, Stock, DeliveredAtAndEA, ModelDetail, Drawing, BomDrawing, WorkPlan, ProdPlan], 
       synchronize: false,
       // migrationsRun: true,
       logging: true,
@@ -30,6 +38,10 @@ import { ModelDetail } from './entity/modelDetail.entity';
     BomModule,
     StockModule,
     ModelDetailModule,
+    ProdPlanModule,
+    WorkPlanModule,
+    DrawingModule,
+    BomDrawingModule,
   ],
   controllers: [],
   providers: [],
