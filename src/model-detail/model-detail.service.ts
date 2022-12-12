@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Model } from 'src/entity/model.entity';
 import { ModelDetail } from 'src/entity/modelDetail.entity';
 import { DataSource, Repository } from 'typeorm';
 import { CreateModelDetailDto } from './dto/create-model-detail.dto';
@@ -10,6 +11,8 @@ export class ModelDetailService {
   constructor(
     @InjectRepository(ModelDetail)
     private modelDetailRepository: Repository<ModelDetail>,
+    @InjectRepository(Model)
+    private modelRepository: Repository<Model>,
     private dataSource: DataSource,
   ) {}
 
@@ -27,10 +30,12 @@ export class ModelDetailService {
   }
 
   async findAll(modelId: number) {
-    // const modelDetails = await this.modelDetailRepository.find({
-    //   where: { modelId: modelId },
-    // });
-    const modelDetails = await this.modelDetailRepository.find();
+    const modelDetails = await this.dataSource
+    .getRepository(ModelDetail)
+    .createQueryBuilder('model-detail')
+    .leftJoinAndSelect('model-detail.model', 'model')
+    .where('model.id = :id',{id:modelId})
+    .getMany();
 
     return modelDetails;
   }
