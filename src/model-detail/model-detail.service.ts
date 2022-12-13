@@ -33,7 +33,12 @@ export class ModelDetailService {
     const modelDetails = await this.dataSource
     .getRepository(ModelDetail)
     .createQueryBuilder('model-detail')
-    .leftJoinAndSelect('model-detail.model', 'model')
+    .select('model-detail.id')
+    .addSelect('model-detail.name')
+    .leftJoin('model-detail.model', 'model')
+    .addSelect('model.id')
+    .leftJoinAndSelect('model-detail.drawing', 'drawing')
+    // .addSelect('drawing.id')
     .where('model.id = :id',{id:modelId})
     .getMany();
 

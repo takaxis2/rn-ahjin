@@ -8,27 +8,27 @@ export class ProdPlanController {
   constructor(private readonly prodPlanService: ProdPlanService) {}
 
   @Post()
-  create(@Body() createProdPlanDto: CreateProdPlanDto) {
-    return this.prodPlanService.create(createProdPlanDto);
+  async create(@Body() createProdPlanDto: CreateProdPlanDto) {
+    return await this.prodPlanService.create(createProdPlanDto);
   }
 
   @Get()
-  findAll() {
-    return this.prodPlanService.findAll();
+  async findAll() {
+    return await this.prodPlanService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.prodPlanService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await  this.prodPlanService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProdPlanDto: UpdateProdPlanDto) {
-    return this.prodPlanService.update(+id, updateProdPlanDto);
+  async update(@Param('id') id: string, @Body() updateProdPlanDto: UpdateProdPlanDto) {
+    return await this.prodPlanService.update(+id, updateProdPlanDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.prodPlanService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.prodPlanService.remove(+id);
   }
 }
