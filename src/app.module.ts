@@ -18,6 +18,7 @@ import { Drawing } from './entity/Drawing.entity';
 import { BomDrawing } from './entity/bom-drawing.entity';
 import { WorkPlan } from './entity/work-plan.entity';
 import { ProdPlan } from './entity/prod-plan.entity';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { ProdPlan } from './entity/prod-plan.entity';
     WorkPlanModule,
     DrawingModule,
     BomDrawingModule,
+    NotificationModule,
   ],
   controllers: [],
   providers: [],
