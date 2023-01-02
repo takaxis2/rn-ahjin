@@ -1,5 +1,5 @@
 export class CreateProdPlanDto {
     modelId: number;
-    dueData: Date;
+    dueDate: Date;
     EA:number;
 }

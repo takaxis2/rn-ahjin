@@ -18,8 +18,8 @@ export class Bom extends BaseEntity {
   T: boolean;
   @Column()
   type: string;
-  @Column()
-  name: string;
+  // @Column()
+  // name: string;
   @Column()
   reduction: boolean;
   @Column()

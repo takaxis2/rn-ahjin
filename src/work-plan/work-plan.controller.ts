@@ -9,26 +9,32 @@ export class WorkPlanController {
 
   @Post()
   async create(@Body() createWorkPlanDto: CreateWorkPlanDto) {
-    return this.workPlanService.create(createWorkPlanDto);
+    console.log('create work-plan');
+    return await this.workPlanService.create(createWorkPlanDto);
   }
 
   @Get()
   async findAll() {
-    return this.workPlanService.findAll();
+    return await this.workPlanService.findAll();
+  }
+  @Get(':page/done')
+  async findAllDone(@Param('page') page: string) {
+    return await this.workPlanService.findAllDone(+page);
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.workPlanService.findOne(+id);
+    return await this.workPlanService.findOne(+id);
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateWorkPlanDto: UpdateWorkPlanDto) {
-    return this.workPlanService.update(+id, updateWorkPlanDto);
+    
+    return await this.workPlanService.update(+id, updateWorkPlanDto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.workPlanService.remove(+id);
+    return await this.workPlanService.remove(+id);
   }
 }

@@ -10,7 +10,7 @@ export class ProdPlan extends BaseEntity{
     @Column()
     EA:number;
     @Column()
-    dueData: Date;  
+    dueDate: Date;  
     @Column()
     done: boolean;
 

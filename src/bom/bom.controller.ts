@@ -26,6 +26,14 @@ export class BomController {
   async findAll(@Param('id') id: string) {
     return await this.bomService.findAll(+id);
   }
+  @Get(':id/g')
+  async findAllG(@Param('id') id: string) {
+    return await this.bomService.findAllG(+id);
+  }
+  @Get(':id/l')
+  async findAllL(@Param('id') id: string) {
+    return await this.bomService.findAllL(+id);
+  }
 
   /* 모델 아이디와 연계되는 특정 bom 찾기  */
   @Get(':id/one')
@@ -35,6 +43,7 @@ export class BomController {
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateBomDto: UpdateBomDto) {
+    console.log(updateBomDto, id);
     return await this.bomService.update(+id, updateBomDto);
   }
 

@@ -5,7 +5,9 @@ export class CreateBomDto {
   size: number;
   T: boolean;
   type:string;
-  requirement:number;
   reduction:boolean;
+  enrlgmnt:boolean;
+  shorten:boolean;
+  requirement:number;
   
 }

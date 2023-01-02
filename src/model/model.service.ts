@@ -22,7 +22,12 @@ export class ModelService {
   }
 
   async findAll() {
-    const models = await this.modelRepository.find();
+    const models = await this.dataSource.getRepository(Model)
+    .createQueryBuilder('model')
+    .leftJoinAndSelect('model.modelDetails','modelDetail')
+    // .addSelect('modelDetail.id')
+    .getMany();
+
     return models;
   }
 

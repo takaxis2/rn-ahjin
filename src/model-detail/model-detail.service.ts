@@ -59,8 +59,8 @@ export class ModelDetailService {
     modelDetail.name = updateModelDetailDto.name;
     
     //이거 두개는 전달받은 아이디값으로 여기서 다시 찾아서 연결시킨다
-    modelDetail.drawing
-    modelDetail.boms
+    modelDetail.drawing;
+    
 
     return await this.modelDetailRepository.save(modelDetail);
   }

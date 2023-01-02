@@ -14,6 +14,7 @@ export class DrawingService {
     ){}
 
   async create(file: Express.Multer.File, createDrawingDto: CreateDrawingDto) {
+    //여기서 파일이 이미 존재하는지 확인하고 생성?
     const drawing = new Drawing();
     drawing.fileName = file.filename;
     drawing.modelDetailId = createDrawingDto.modelDetailId;
