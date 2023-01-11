@@ -1,1 +1,4 @@
-export class CreateBomDrawingDto {}
+export class CreateBomDrawingDto {
+    fileName: string;
+    bomId: number;
+}

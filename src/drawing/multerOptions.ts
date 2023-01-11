@@ -38,6 +38,7 @@ export const multerDiskOptions = {
   storage: diskStorage({
     destination: (request, file, callback) => {
       const uploadPath:string = 'public';
+      
       if (!existsSync(uploadPath)) {
         // uploads 폴더가 존재하지 않을시, 생성합니다.
         mkdirSync(uploadPath);
@@ -46,8 +47,9 @@ export const multerDiskOptions = {
     },
     filename: (request, file, callback) => {
       //파일 이름 설정
-      callback(null,  `${request.body.name}`);
-      // callback(null, `${Date.now()}${extname(file.originalname)}`);
+      // callback(null,  `${request.body.name}`);
+      console.log(file);
+      callback(null, file.originalname);
     },
   }),
   limits: {
