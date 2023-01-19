@@ -48,7 +48,7 @@ export const multerDiskOptions = {
     filename: (request, file, callback) => {
       //파일 이름 설정
       // callback(null,  `${request.body.name}`);
-      console.log(file);
+      // console.log(file);
       callback(null, file.originalname);
     },
   }),
@@ -155,4 +155,4 @@ export const multerMemoryOptions = {
  * @returns {String} 파일 업로드 경로
  */
 export const uploadFileURL = (fileName): string =>
-  `http://localhost:5000/${fileName}`;
+  `http://localhost:3300/${fileName}`;

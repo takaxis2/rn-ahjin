@@ -19,9 +19,14 @@ import { BomDrawing } from './entity/bom-drawing.entity';
 import { WorkPlan } from './entity/work-plan.entity';
 import { ProdPlan } from './entity/prod-plan.entity';
 import { NotificationModule } from './notification/notification.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+    rootPath: join(__dirname, '../public'),
+  }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',

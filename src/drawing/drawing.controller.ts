@@ -12,8 +12,8 @@ export class DrawingController {
   @Post()
   @UseInterceptors(FileInterceptor('image', multerDiskOptions))
   async create(@UploadedFile() file :Express.Multer.File, @Body() createDrawingDto: CreateDrawingDto) {
-    console.log(createDrawingDto);
-    // return await this.drawingService.create(file, createDrawingDto);
+    // console.log(createDrawingDto, file);
+    return await this.drawingService.create(file, createDrawingDto);
   }
 
   @Get()

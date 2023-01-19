@@ -37,7 +37,7 @@ export class ModelDetailController {
     @Param('id') id: string,
     @Body() updateModelDetailDto: UpdateModelDetailDto,
   ) {
-    console.log(id, updateModelDetailDto);
+    console.log('updateModelDetailDto',updateModelDetailDto);
     return await this.modelDetailService.update(+id, updateModelDetailDto);
   }
 
