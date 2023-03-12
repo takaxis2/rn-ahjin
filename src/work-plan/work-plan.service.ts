@@ -45,7 +45,7 @@ export class WorkPlanService {
     .createQueryBuilder('work-plan')
     .innerJoinAndSelect('work-plan.bom','bom')
     .where('work-plan.done = :done',{done:true})
-    .skip(page)
+    .skip(page*10)
     .take(10)
     .getMany();
     

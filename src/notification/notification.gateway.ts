@@ -36,7 +36,7 @@ export class NotificationGateway implements OnGatewayInit, OnGatewayConnection, 
   @SubscribeMessage('work-plan')
   async workPlanNotification(@MessageBody() data: any,
   @ConnectedSocket() socket){
-
+    console.log('ws wp');
     const tasks = await this.workPlanRepository.createQueryBuilder('work-plan')
     .where('work-plan.done = :done', {done:false})
     .getCount();
@@ -47,7 +47,7 @@ export class NotificationGateway implements OnGatewayInit, OnGatewayConnection, 
   @SubscribeMessage('prod-plan')
   async prodPlanNotification(@MessageBody() data: any,
   @ConnectedSocket() socket){
-
+    console.log('ws wp');
     const tasks = await this.prodPlanRepository.createQueryBuilder('prod-plan')
     .where('prod-plan.done = :done', {done:false})
     .getCount();

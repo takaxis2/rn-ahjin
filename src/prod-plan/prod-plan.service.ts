@@ -44,14 +44,14 @@ export class ProdPlanService {
     return prodPlans;
   }
 
-  async findAllDone(page: number = 0) {
+  async findAllDone(page: number) {
     const prodPlans = await this.dataSource.getRepository(ProdPlan)
     .createQueryBuilder('prod-plan')
     .leftJoin('prod-plan.modelDetail','modelDetail')
     .addSelect('modelDetail.id')
     .addSelect('modelDetail.name')
     .where('prod-plan.done =:done',{done:true})
-    .skip(page)
+    .skip(page * 10)
     .take(10)
     .getMany();
 
