@@ -16,12 +16,18 @@ export class DrawingService {
   async create(file: Express.Multer.File, createDrawingDto: CreateDrawingDto) {
     //여기서 파일이 이미 존재하는지 확인하고 생성?
     const drawing = new Drawing();
-    drawing.fileName = file.filename;
-    drawing.modelDetailId = createDrawingDto.modelDetailId;
+    if(file !== undefined)
+    {
+        drawing.fileName = file.filename;
 
-    const result = await this.drawingRepository.save(drawing);
-
-    return result;
+        drawing.modelDetailId = createDrawingDto.modelDetailId;
+        
+        const result = await this.drawingRepository.save(drawing);
+        
+        return result;
+      }
+      return drawing;
+    
   }
 
   findAll() {

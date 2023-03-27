@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { BomDrawing } from 'src/entity/bom-drawing.entity';
 import { Bom } from 'src/entity/bom.entity';
 import { DataSource, Repository } from 'typeorm';
 import { CreateBomDto } from './dto/create-bom.dto';
@@ -9,6 +10,7 @@ import { UpdateBomDto } from './dto/update-bom.dto';
 export class BomService {
   constructor(
     @InjectRepository(Bom) private bomRepository: Repository<Bom>,
+    @InjectRepository(BomDrawing) private bomDrawingRepository: Repository<BomDrawing>,
     private dataSource: DataSource,
   ) {}
 
@@ -23,12 +25,17 @@ export class BomService {
     return await this.bomRepository.save(bom);
   }
 
-  async findAll(modelId: number) {
+  async findAll(modelId: number, type: string) {
     // const boms = await this.bomRepository.find({ where: { modelDetailId: modelId } });
     const boms = await this.dataSource.getRepository(Bom)
     .createQueryBuilder('bom')
-    .innerJoin('bom.modelDetail','modelDetail')
+    .leftJoin('bom.modelDetail','modelDetail')
+    .addSelect('modelDetail.id')
+    .addSelect('modelDetail.name')
+    .leftJoin('bom.bomDrawing','bomDrawing')
+    .addSelect('bomDrawing.fileName')
     .where('modelDetail.id = :id',{id:modelId})
+    .andWhere('bom.type =:type',{type: type})
     .getMany();
 
     return boms;
@@ -37,7 +44,9 @@ export class BomService {
     // const boms = await this.bomRepository.find({ where: { modelDetailId: modelId } });
     const boms = await this.dataSource.getRepository(Bom)
     .createQueryBuilder('bom')
-    .innerJoin('bom.modelDetail','modelDetail')
+    .leftJoin('bom.modelDetail','modelDetail')
+    .leftJoin('bom.bomDrawing','bomDrawing')
+    .addSelect('bomDrawing.fileName')
     .where('modelDetail.id = :id',{id:modelId})
     .andWhere('bom.type =:type',{type:'g'})
     .getMany();
@@ -48,7 +57,9 @@ export class BomService {
     // const boms = await this.bomRepository.find({ where: { modelDetailId: modelId } });
     const boms = await this.dataSource.getRepository(Bom)
     .createQueryBuilder('bom')
-    .innerJoin('bom.modelDetail','modelDetail')
+    .leftJoin('bom.modelDetail','modelDetail')
+    .leftJoin('bom.bomDrawing','bomDrawing')
+    .addSelect('bomDrawing.fileName')
     .where('modelDetail.id = :id',{id:modelId})
     .andWhere('bom.type =:type',{type:'l'})
     .getMany();
@@ -71,7 +82,8 @@ export class BomService {
     bom.shorten = updateBomDto.shorten;
     bom.size = updateBomDto.size;
     //얘도 따로 처리해야함
-    // bom.bomDrawing;
+    const bomDrawing = await this.bomDrawingRepository.findOne({where:{id:updateBomDto.bomDrawing.id}})
+     bom.bomDrawing = bomDrawing;
 
     await this.bomRepository.save(bom);
     

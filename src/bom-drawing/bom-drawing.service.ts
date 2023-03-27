@@ -1,11 +1,30 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { BomDrawing } from 'src/entity/bom-drawing.entity';
+import { DataSource, Repository } from 'typeorm';
 import { CreateBomDrawingDto } from './dto/create-bom-drawing.dto';
 import { UpdateBomDrawingDto } from './dto/update-bom-drawing.dto';
 
 @Injectable()
 export class BomDrawingService {
-  create(createBomDrawingDto: CreateBomDrawingDto) {
-    return 'This action adds a new bomDrawing';
+  constructor(
+    @InjectRepository(BomDrawing) private bomDrawingRepository : Repository<BomDrawing>,
+    private dateSource: DataSource
+  ){}
+
+  async create(file:Express.Multer.File, createBomDrawingDto: CreateBomDrawingDto) {
+    const bomDrawing = new BomDrawing();
+    if(file !== undefined)
+    {
+      bomDrawing.fileName = file.filename;
+
+        bomDrawing.bomId = createBomDrawingDto.bomId;
+        
+        const result = await this.bomDrawingRepository.save(bomDrawing);
+        
+        return result;
+      }
+      return bomDrawing;
   }
 
   findAll() {

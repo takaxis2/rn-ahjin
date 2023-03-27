@@ -1,4 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from '@nestjs/common';
+import { UploadedFile } from '@nestjs/common/decorators';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { multerDiskOptions } from 'src/drawing/multerOptions';
 import { BomDrawingService } from './bom-drawing.service';
 import { CreateBomDrawingDto } from './dto/create-bom-drawing.dto';
 import { UpdateBomDrawingDto } from './dto/update-bom-drawing.dto';
@@ -8,8 +11,10 @@ export class BomDrawingController {
   constructor(private readonly bomDrawingService: BomDrawingService) {}
 
   @Post()
-  create(@Body() createBomDrawingDto: CreateBomDrawingDto) {
-    return this.bomDrawingService.create(createBomDrawingDto);
+  @UseInterceptors(FileInterceptor('image', multerDiskOptions))
+  async create(@UploadedFile() file: Express.Multer.File, @Body() createBomDrawingDto: CreateBomDrawingDto) {
+    console.log('bom drawing');
+    return await this.bomDrawingService.create(file,createBomDrawingDto);
   }
 
   @Get()

@@ -22,18 +22,19 @@ export class BomController {
   }
 
   /* 모델아이디와 연계되는 bom 전부 찾아오기 */
-  @Get(':id/all')
-  async findAll(@Param('id') id: string) {
-    return await this.bomService.findAll(+id);
+  @Get(':id/:type')
+  async findAll(@Param('id') id: string, @Param('type') type: string) {
+    
+    return await this.bomService.findAll(+id, type);
   }
-  @Get(':id/g')
-  async findAllG(@Param('id') id: string) {
-    return await this.bomService.findAllG(+id);
-  }
-  @Get(':id/l')
-  async findAllL(@Param('id') id: string) {
-    return await this.bomService.findAllL(+id);
-  }
+  // @Get(':id/g')
+  // async findAllG(@Param('id') id: string) {
+  //   return await this.bomService.findAllG(+id);
+  // }
+  // @Get(':id/l')
+  // async findAllL(@Param('id') id: string) {
+  //   return await this.bomService.findAllL(+id);
+  // }
 
   /* 모델 아이디와 연계되는 특정 bom 찾기  */
   @Get(':id/one')
